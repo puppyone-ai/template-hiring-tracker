@@ -1,7 +1,7 @@
-# 渠道记录
+# Channel records
 
-本目录保留渠道过程记录的组织方式。**未连接 BOSS 或其他平台，也未配置任何账号、抓取、发送或定时任务。**
+This directory preserves the organization of channel-specific process records. **No BOSS or other platform is connected. No account, scraping, sending, or scheduled task is configured.**
 
-使用 [渠道入库记录模板](渠道入库记录模板.md) 记录私有工作区的一次本地入库。平台导出、卡片、简历、真实联系方式及原始日志不发布到公开模板。
+Use the [channel intake log template](channel-intake-log-template.md) to record a local intake in a private workspace. Do not publish platform exports, cards, resumes, actual contacts, or raw logs in the public template.
 
-当前表和短同步摘要放在 `00-console/`；渠道明细在本目录。私有副本接入其他来源时可以另建渠道目录，并人工确认范围及授权。
+Keep the current table and short sync summary in `00-console/`, and channel details here. A private copy may add another channel directory after a person confirms the scope and authorization.

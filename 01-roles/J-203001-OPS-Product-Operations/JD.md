@@ -1,27 +1,27 @@
-# 产品运营｜通用岗位示例
+# Product Operations: generic role example
 
-> 虚构示例，不代表实际招聘。使用前由人工确认职责与条件。
+> Fictional example, not an actual vacancy. A person must confirm responsibilities and conditions before use.
 
-- 公司：{{公司名称}}
-- 用工类型：{{用工类型}}
-- 地点与工作方式：{{地点及工作方式}}
-- 薪酬范围：{{经人工确认的薪酬范围}}
-- 投递方式：{{经确认的私有入口或联系邮箱}}
+- Company: {{Company name}}
+- Employment type: {{Employment type}}
+- Location and working arrangement: {{Location and working format}}
+- Compensation range: {{Human-confirmed compensation range}}
+- Application method: {{Confirmed private entry or contact email}}
 
-## 岗位目标
+## Role objective
 
-围绕用户问题组织内容与实验，明确指标口径并将反馈带回产品。
+Organize content and experiments around user problems, define metrics, and bring feedback into product work.
 
-## 工作内容
+## Responsibilities
 
-- 整理用户反馈并提出可验证假设。
-- 策划和制作产品内容或活动。
-- 记录指标口径、实验结果与复盘。
+- Organize user feedback and propose testable hypotheses.
+- Plan and create product content or activities.
+- Document metrics, experiment results, and retrospectives.
 
-## 能力证据
+## Evidence of capability
 
-- 提供具体内容或运营案例。
-- 能解释目标用户、执行步骤与观察结果。
-- 能够区分数据事实与推测。
+- Provide a specific content or operations case.
+- Explain target users, execution steps, and observed results.
+- Distinguish data facts from speculation.
 
-仅提供本人有权展示的材料；无公开作品时可先说明，再协调合适的展示方式。
+Provide only materials you are authorized to share. If work cannot be shown publicly, explain that limitation and agree on an appropriate demonstration method.

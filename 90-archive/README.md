@@ -1,7 +1,7 @@
-# 未入职归档｜虚构示例
+# Archived applications: fictional example
 
-[归档表](候选人归档表.csv) 保存未入职结束记录，[示例候选人己](示例候选人己/候选人卡.md) 演示归档后的扁平目录。
+The [archive table](archived-candidates.csv) stores applications closed without a hire. [Sample Candidate F](sample-candidate-f/candidate-card.md) demonstrates the flat archive structure.
 
-真实使用时需人工确认流程结束，保留原候选人 ID、首次入库时间和记录，将阶段设为 `已归档`，移动目录并修复链接，再从当前表和 HTML 移除。不能仅根据 AI 建议归档。
+In a private workspace, a person must confirm closure. Preserve the original candidate ID, intake date, and history; set stage to `Archived`, move the folder, repair links, and then remove the candidate from the current table and HTML. An AI suggestion alone is insufficient.
 
-本示例中的结论和经历均为虚构。正式使用前清除示例行及对应目录，保留表头。
+All example outcomes and backgrounds are fictional. Remove example rows and folders before actual use, keeping the CSV header.

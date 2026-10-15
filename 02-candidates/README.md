@@ -1,9 +1,9 @@
-# 活跃候选人｜虚构示例
+# Active candidates: fictional examples
 
-五名示例候选人均为独立编写的虚构人物，没有对应真实人员。示例经历仅用于演示材料索引和事实引用，不是简历原件。
+All five examples were independently authored and do not correspond to real people. Sample backgrounds demonstrate source references and are not original resumes.
 
-- [示例候选人甲](产品设计师/示例候选人甲/候选人卡.md)、[示例候选人乙](产品设计师/示例候选人乙/候选人卡.md)：产品设计师。
-- [示例候选人丙](应用工程师/示例候选人丙/候选人卡.md)、[示例候选人丁](应用工程师/示例候选人丁/候选人卡.md)：应用工程师。
-- [示例候选人戊](产品运营/示例候选人戊/候选人卡.md)：产品运营。
+- [Sample Candidate A](product-designer/sample-candidate-a/candidate-card.md) and [Sample Candidate B](product-designer/sample-candidate-b/candidate-card.md): Product Designer.
+- [Sample Candidate C](application-engineer/sample-candidate-c/candidate-card.md) and [Sample Candidate D](application-engineer/sample-candidate-d/candidate-card.md): Application Engineer.
+- [Sample Candidate E](product-operations/sample-candidate-e/candidate-card.md): Product Operations.
 
-当前阶段与虚构人工结论只在 [总表](../00-console/候选人总表.csv)。正式使用前，在私有副本移除所有示例行及其目录。
+Current stages and fictional human decisions are maintained only in the [candidate table](../00-console/candidates.csv). Remove all fictional rows and their directories before using a private copy for real recruiting.

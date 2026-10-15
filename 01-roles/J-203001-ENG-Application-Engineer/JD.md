@@ -1,27 +1,27 @@
-# 应用工程师｜通用岗位示例
+# Application Engineer: generic role example
 
-> 虚构示例，不代表实际招聘。使用前由人工确认职责与条件。
+> Fictional example, not an actual vacancy. A person must confirm responsibilities and conditions before use.
 
-- 公司：{{公司名称}}
-- 用工类型：{{用工类型}}
-- 地点与工作方式：{{地点及工作方式}}
-- 薪酬范围：{{经人工确认的薪酬范围}}
-- 投递方式：{{经确认的私有入口或联系邮箱}}
+- Company: {{Company name}}
+- Employment type: {{Employment type}}
+- Location and working arrangement: {{Location and working format}}
+- Compensation range: {{Human-confirmed compensation range}}
+- Application method: {{Confirmed private entry or contact email}}
 
-## 岗位目标
+## Role objective
 
-实现可运行、可测试的应用功能，处理失败情况并编写清晰的运行说明。
+Implement runnable, testable application features, handle failure cases, and provide clear running instructions.
 
-## 工作内容
+## Responsibilities
 
-- 实现应用接口或交互链路。
-- 为关键逻辑编写测试并定位异常。
-- 维护运行说明与配置边界。
+- Implement an application interface or interaction flow.
+- Test key logic and investigate failures.
+- Maintain running instructions and configuration boundaries.
 
-## 能力证据
+## Evidence of capability
 
-- 提供可解释的代码或演示。
-- 能够说明数据流、错误处理和测试方式。
-- 能清楚区分个人实现与第三方能力。
+- Provide explainable code or a demonstration.
+- Explain data flow, error handling, and testing.
+- Distinguish personal implementation from third-party capabilities.
 
-仅提供本人有权展示的材料；无公开作品时可先说明，再协调合适的展示方式。
+Provide only materials you are authorized to share. If work cannot be shown publicly, explain that limitation and agree on an appropriate demonstration method.

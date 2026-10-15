@@ -1,51 +1,51 @@
 # Recruit Template Version
 
-一套面向人和 AI 协作的招聘工作区。用 Markdown 保存岗位、候选人卡和面试记录，用 CSV 管理招聘阶段，用本地 HTML 浏览候选人。不需要数据库、账号或在线服务。
+A lightweight recruiting workspace for people and AI assistants. Keep roles, candidate profiles, and interview notes in Markdown, track stages in CSV, and browse candidates in a local HTML view. No database, account, or online service is required.
 
-> **公开模板 · 全部示例均为虚构。** 示例人员、学校、项目、日期、沟通和录用结果均专为演示编写，与真实招聘记录无对应关系。邮件仅使用 `example.com`。模板不包含真实简历、联系方式、面试评价、招聘平台导出、内部链接或私有仓库历史。
+> **Public template. All examples are fictional.** People, schools, projects, dates, communications, and hiring outcomes were written specifically for this demonstration and do not correspond to real recruiting records. Example email addresses use `example.com`. No real resumes, contact details, interview evaluations, platform exports, internal links, or private repository history are included.
 
-## 快速开始
+## Quick start
 
-1. 将本模板复制到你自己的**私有工作区**。公开模板仓库只用于维护模板，真实招聘资料应另行保管。
-2. 从 [岗位目录](01-roles/README.md) 选择或创建岗位，填写 JD、岗位卡及筛选标准；`{{...}}` 都是使用前需要填写的占位符。
-3. 查看 [虚构候选人示例](02-candidates/README.md)，再用 [候选人卡模板](03-process-templates/9候选人卡模板.md) 建立自己的记录。正式使用时，移除三个 CSV 中的虚构行及对应示例目录，保留表头。
-4. 在 [候选人总表](00-console/候选人总表.csv) 维护当前阶段，在 [招聘待办](00-console/招聘待办.md) 维护下一步行动。AI 建议与人工结论分开填写。
-5. 双击 [浏览版总表](00-console/候选人总表.html) 即可查看；修改 CSV 后，使用 Python 3.9 或更高版本的标准库脚本重新生成：
+1. Copy this template into your own **private workspace**. Use the public repository to maintain the template; keep real recruiting materials separately.
+2. Choose or create a role in the [role directory](01-roles/README.md). Fill in the job description, role card, and screening criteria. Replace every `{{...}}` placeholder before use.
+3. Explore the [fictional candidates](02-candidates/README.md), then create records with the [candidate card template](03-process-templates/9-candidate-card.md). Before adding real candidates to a private copy, remove the fictional rows from all three CSV files and remove their example folders. Keep the CSV headers.
+4. Maintain current stages in the [candidate table](00-console/candidates.csv) and next actions in [hiring todos](00-console/hiring-todos.md). Keep AI suggestions separate from human decisions.
+5. Open the [candidate browser](00-console/candidates.html) locally. After editing the CSV, regenerate the HTML using Python 3.9 or later; only the standard library is needed:
 
    ```sh
    python3 scripts/build_console.py
    python3 scripts/build_console.py --check
    ```
 
-不使用 Python 也可以直接编辑 CSV 和 Markdown；HTML 是派生视图，修改 CSV 后需重新生成才会更新。
+You can edit CSV and Markdown without Python. The HTML is a derived view and must be regenerated after CSV changes.
 
-## 工作区入口
+## Workspace guide
 
-| 目录 | 内容 |
+| Directory | Contents |
 | --- | --- |
-| [00-console](00-console/候选人总表.csv) | 当前候选人、HTML 浏览版、待办、同步记录 |
-| [01-roles](01-roles/README.md) | 设计、工程、运营三个通用示例岗位 |
-| [02-candidates](02-candidates/README.md) | 按岗位分组的虚构候选人卡、示例材料与沟通记录 |
-| [03-process-templates](03-process-templates/9招聘流程.md) | 触达、面试、拒信、Offer、候选人卡和记录模板 |
-| [04-技术笔试题](04-技术笔试题/笔试题-发给候选人.md) | 通用技术练习与独立评审参考 |
-| [05-boss-zhipin](05-boss-zhipin/README.md) | 渠道记录约定与空白入库记录模板 |
-| [90-archive](90-archive/README.md) | 未入职结束的虚构归档示例 |
-| [91-hired](91-hired/README.md) | 虚构已入职示例 |
-| [99-system-rules](99-system-rules/人机协作规范.md) | 字段、状态、命名、同步及公开模板维护规则 |
+| [00-console](00-console/candidates.csv) | Current candidates, HTML browser, todos, and sync log |
+| [01-roles](01-roles/README.md) | Generic design, engineering, and operations roles |
+| [02-candidates](02-candidates/README.md) | Fictional candidate cards, sample materials, and communication logs grouped by role |
+| [03-process-templates](03-process-templates/9-recruiting-process.md) | Outreach, interviews, rejections, offers, candidate cards, and record templates |
+| [04-assessments](04-assessments/candidate-exercise.md) | Generic technical exercise and separate reviewer guide |
+| [05-boss-zhipin](05-boss-zhipin/README.md) | Channel record conventions and a blank intake log |
+| [90-archive](90-archive/README.md) | Fictional closed applications without a hire |
+| [91-hired](91-hired/README.md) | Fictional hired-candidate example |
+| [99-system-rules](99-system-rules/human-ai-collaboration.md) | Fields, stages, naming, sync, and public-template maintenance rules |
 
-## 日常流程
+## Daily workflow
 
-1. 确认岗位与本次材料范围，核验材料是否可读。
-2. 联合检查当前表、归档表、已入职表，避免重复建档。
-3. 为新候选人分配唯一 ID，建立 `02-candidates/<岗位>/<姓名>/`，保留原始材料并标明事实来源。
-4. AI 可以整理事实、标注待核实项和起草问题；人确认是否推进、面试结论和招聘阶段。
-5. 每次状态变更先更新 CSV，再重新生成 HTML；沟通日期和下一步事项放在待办或沟通记录。
-6. 人工确认结束后移入归档；人工确认已入职后移入已入职目录。两者均从当前表移除。
+1. Confirm the role and source scope, then check that the supplied materials are readable.
+2. Check current, archived, and hired records together to avoid duplicate profiles.
+3. Allocate a unique candidate ID and create `02-candidates/<role-slug>/<candidate-slug>/`. Preserve original materials in the private workspace and cite their sources.
+4. AI may organize facts, flag missing evidence, and draft questions. A person confirms progression, interview conclusions, and stage changes.
+5. Update the CSV first, then regenerate HTML. Keep communication dates and next actions in todos or communication logs.
+6. After human confirmation, move closed applications to the archive and hired candidates to the hired directory. Remove both from the current table.
 
-完整规则见 [AGENTS.md](AGENTS.md) 与 [招聘流程](03-process-templates/9招聘流程.md)。示例中的 `pass` 明确表示“不继续推进”，详情见 [字段与状态规范](99-system-rules/字段与状态规范.md)。
+See [AGENTS.md](AGENTS.md) and the [recruiting process](03-process-templates/9-recruiting-process.md) for full rules. Use the explicit decision `Do not advance` rather than the ambiguous word "pass"; see [fields and statuses](99-system-rules/fields-and-statuses.md).
 
-## 维护公开模板
+## Maintaining the public template
 
-参照 [公开模板维护规范](99-system-rules/公开模板维护规范.md)。结构可复用，业务数据需重新编写为虚构示例；仅替换姓名不足以脱敏。`.gitignore` 只是辅助措施，发布前仍需人工审阅暂存内容、文件名、链接和 Git 历史。
+Follow the [public-template maintenance rules](99-system-rules/public-template-maintenance.md). Reuse structure and workflows, and write fictional examples independently. Replacing names alone does not anonymize a real record. `.gitignore` is only a supporting measure; review staged content, filenames, links, and Git history before publication.
 
-本仓库沿用原有 [LICENSE](LICENSE)。
+This repository retains its original [LICENSE](LICENSE).

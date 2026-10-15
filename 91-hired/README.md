@@ -1,7 +1,7 @@
-# 已入职｜虚构示例
+# Hired candidates: fictional example
 
-[已入职表](已入职表.csv) 与未入职归档分开。[示例候选人庚](示例候选人庚/候选人卡.md) 仅演示结构，不代表真实员工或真实录用结果。
+The [hired table](hired-candidates.csv) is separate from applications closed without a hire. [Sample Candidate G](sample-candidate-g/candidate-card.md) demonstrates structure only, not a real employee or hiring outcome.
 
-真实使用时需人工明确确认已入职。保持原 ID 和首次入库时间，阶段及人工结论均为 `已入职`，目录移入本目录并修复链接，再从当前表和 HTML 移除。
+In actual use, a person must explicitly confirm the hire. Preserve the original ID and intake date, set both stage and decision to `Hired`, move the folder here, repair links, and then remove the candidate from the current table and HTML.
 
-公开示例不包含薪酬、合同、入职表单或个人证件。正式使用前清除示例行及对应目录，保留表头。
+Public examples contain no compensation, contracts, onboarding forms, or identity documents. Remove example rows and folders before actual use, keeping the CSV header.

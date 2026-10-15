@@ -1,0 +1,39 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="referrer" content="no-referrer">
+<title>Candidate tracker · Recruit Template Version</title>
+<style>
+*{box-sizing:border-box}body{margin:0;padding:40px 24px;background:#f5f6f8;color:#1d2939;font:15px/1.6 system-ui,sans-serif}
+main{max-width:1600px;margin:auto}h1{font-size:28px;margin:0 0 8px}a{color:#2452a1;text-underline-offset:3px}
+.notice{padding:14px 18px;border:1px solid #dfc97b;background:#fff9e9;border-radius:8px;margin:20px 0}
+.meta{color:#475467}.table-wrap{overflow-x:auto;border:1px solid #d0d5dd;border-radius:8px;background:white}
+table{width:100%;border-collapse:collapse;text-align:left}caption{text-align:left;padding:16px;font-weight:600}
+th,td{padding:12px 14px;border-bottom:1px solid #eaecf0;vertical-align:top;min-width:110px}
+th{background:#f0f3f8;white-space:nowrap}td:nth-child(10){min-width:260px}td:nth-child(2),td:nth-child(11){white-space:nowrap}
+.spacer td{padding:5px;background:#f5f6f8}footer{margin-top:20px;color:#475467}
+@media(max-width:640px){body{padding:24px 12px}h1{font-size:24px}}
+</style>
+</head>
+<body><main>
+<p class="meta">Recruit Template Version · Local browser</p>
+<h1>Candidate tracker</h1>
+<p class="notice">All records in this public template are fictional and do not correspond to real people. Do not publish this page after adding real information to a private copy.</p>
+<p><a href="candidates.csv">CSV source of truth</a> · <a href="hiring-todos.md">Hiring todos</a> · <a href="../README.md">User guide</a></p>
+<p class="meta">Current candidates: 5 · Roles: 3. Archived and hired records are excluded.</p>
+<div class="table-wrap"><table>
+<caption>Current candidates, grouped by role</caption>
+<thead><tr><th scope="col">No.</th><th scope="col">Candidate ID</th><th scope="col">Name</th><th scope="col">Role</th><th scope="col">School</th><th scope="col">Source</th><th scope="col">Intake date</th><th scope="col">Stage</th><th scope="col">Human decision</th><th scope="col">AI suggestion</th><th scope="col">Role ID</th><th scope="col">Candidate materials</th><th scope="col">Updated</th></tr></thead>
+<tbody>
+<tr><td>1</td><td>C-203001-001</td><td>Sample Candidate A</td><td>Product Designer</td><td>Example Institute Blue</td><td>Sample application</td><td>2030-01-03</td><td>Awaiting screening</td><td>—</td><td>AI suggestion: Human screening and verification of prototype iteration evidence</td><td>J-203001-DES</td><td><a href="../02-candidates/product-designer/sample-candidate-a/candidate-card.md">View candidate card</a></td><td>2030-01-07</td></tr>
+<tr><td>2</td><td>C-203001-002</td><td>Sample Candidate B</td><td>Product Designer</td><td>Example Institute Green</td><td>Sample application</td><td>2030-01-03</td><td>Awaiting first interview scheduling</td><td>Advance</td><td>AI suggestion: Prepare questions about personal contribution</td><td>J-203001-DES</td><td><a href="../02-candidates/product-designer/sample-candidate-b/candidate-card.md">View candidate card</a></td><td>2030-01-07</td></tr>
+<tr class="spacer" aria-hidden="true"><td colspan="13"></td></tr>
+<tr><td>3</td><td>C-203001-003</td><td>Sample Candidate C</td><td>Application Engineer</td><td>Example Institute Orange</td><td>Sample application</td><td>2030-01-03</td><td>First interview</td><td>Advance</td><td>AI suggestion: Verify error handling in the sample project</td><td>J-203001-ENG</td><td><a href="../02-candidates/application-engineer/sample-candidate-c/candidate-card.md">View candidate card</a></td><td>2030-01-07</td></tr>
+<tr><td>4</td><td>C-203001-004</td><td>Sample Candidate D</td><td>Application Engineer</td><td>Example Institute Purple</td><td>Sample application</td><td>2030-01-03</td><td>Awaiting screening</td><td>—</td><td>AI suggestion: Request running and test evidence for human review</td><td>J-203001-ENG</td><td><a href="../02-candidates/application-engineer/sample-candidate-d/candidate-card.md">View candidate card</a></td><td>2030-01-07</td></tr>
+<tr class="spacer" aria-hidden="true"><td colspan="13"></td></tr>
+<tr><td>5</td><td>C-203001-005</td><td>Sample Candidate E</td><td>Product Operations</td><td>Example Institute Teal</td><td>Sample application</td><td>2030-01-03</td><td>Received</td><td>—</td><td>AI suggestion: Have a person check material completeness first</td><td>J-203001-OPS</td><td><a href="../02-candidates/product-operations/sample-candidate-e/candidate-card.md">View candidate card</a></td><td>2030-01-07</td></tr>
+</tbody></table></div>
+<footer>This page is generated from CSV. Maintain stages in CSV, then run <code>python3 scripts/build_console.py</code>.</footer>
+</main></body></html>

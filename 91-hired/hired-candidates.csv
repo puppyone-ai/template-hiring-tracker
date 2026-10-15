@@ -1,0 +1,2 @@
+sequence,candidate_id,name,role,school,source,intake_date,stage,human_decision,ai_recommendation,role_id,candidate_directory,updated_at
+1,C-203001-007,Sample Candidate G,Application Engineer,Example Institute Gray,Sample application,2030-01-03,Hired,Hired,AI suggestion: Fictional process closed; no further action suggested,J-203001-ENG,91-hired/sample-candidate-g,2030-01-07

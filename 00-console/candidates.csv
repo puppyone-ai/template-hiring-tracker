@@ -1,0 +1,8 @@
+sequence,candidate_id,name,role,school,source,intake_date,stage,human_decision,ai_recommendation,role_id,candidate_directory,updated_at
+1,C-203001-001,Sample Candidate A,Product Designer,Example Institute Blue,Sample application,2030-01-03,Awaiting screening,,AI suggestion: Human screening and verification of prototype iteration evidence,J-203001-DES,02-candidates/product-designer/sample-candidate-a,2030-01-07
+2,C-203001-002,Sample Candidate B,Product Designer,Example Institute Green,Sample application,2030-01-03,Awaiting first interview scheduling,Advance,AI suggestion: Prepare questions about personal contribution,J-203001-DES,02-candidates/product-designer/sample-candidate-b,2030-01-07
+
+3,C-203001-003,Sample Candidate C,Application Engineer,Example Institute Orange,Sample application,2030-01-03,First interview,Advance,AI suggestion: Verify error handling in the sample project,J-203001-ENG,02-candidates/application-engineer/sample-candidate-c,2030-01-07
+4,C-203001-004,Sample Candidate D,Application Engineer,Example Institute Purple,Sample application,2030-01-03,Awaiting screening,,AI suggestion: Request running and test evidence for human review,J-203001-ENG,02-candidates/application-engineer/sample-candidate-d,2030-01-07
+
+5,C-203001-005,Sample Candidate E,Product Operations,Example Institute Teal,Sample application,2030-01-03,Received,,AI suggestion: Have a person check material completeness first,J-203001-OPS,02-candidates/product-operations/sample-candidate-e,2030-01-07

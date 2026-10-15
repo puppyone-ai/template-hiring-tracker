@@ -1,27 +1,27 @@
-# 产品设计师｜通用岗位示例
+# Product Designer: generic role example
 
-> 虚构示例，不代表实际招聘。使用前由人工确认职责与条件。
+> Fictional example, not an actual vacancy. A person must confirm responsibilities and conditions before use.
 
-- 公司：{{公司名称}}
-- 用工类型：{{用工类型}}
-- 地点与工作方式：{{地点及工作方式}}
-- 薪酬范围：{{经人工确认的薪酬范围}}
-- 投递方式：{{经确认的私有入口或联系邮箱}}
+- Company: {{Company name}}
+- Employment type: {{Employment type}}
+- Location and working arrangement: {{Location and working format}}
+- Compensation range: {{Human-confirmed compensation range}}
+- Application method: {{Confirmed private entry or contact email}}
 
-## 岗位目标
+## Role objective
 
-围绕用户任务设计清晰的产品流程，使用原型验证方案并与工程共同落地。
+Design clear product workflows around user tasks, validate solutions with prototypes, and work with engineering through delivery.
 
-## 工作内容
+## Responsibilities
 
-- 梳理任务流程与信息层级。
-- 设计正常、空白、加载、异常等关键状态。
-- 通过用户反馈迭代原型并解释取舍。
+- Map task flows and information hierarchy.
+- Design normal, empty, loading, and failure states.
+- Iterate prototypes using feedback and explain tradeoffs.
 
-## 能力证据
+## Evidence of capability
 
-- 提供能够说明个人贡献的设计案例。
-- 能解释问题、方案与验证之间的关系。
-- 能与工程沟通实现边界。
+- Provide a design case showing personal contribution.
+- Explain the relationship between the problem, solution, and validation.
+- Communicate implementation boundaries with engineering.
 
-仅提供本人有权展示的材料；无公开作品时可先说明，再协调合适的展示方式。
+Provide only materials you are authorized to share. If work cannot be shown publicly, explain that limitation and agree on an appropriate demonstration method.

@@ -12,44 +12,54 @@ from urllib.parse import quote
 
 ROOT = Path(__file__).resolve().parents[1]
 FIELDS = (
-    "序号", "候选人ID", "姓名", "岗位", "学校", "来源", "入库时间",
-    "当前阶段", "人工结论", "AI建议", "岗位ID", "候选人目录", "最后更新",
+    "sequence", "candidate_id", "name", "role", "school", "source", "intake_date",
+    "stage", "human_decision", "ai_recommendation", "role_id", "candidate_directory", "updated_at",
+)
+LABELS = (
+    "No.", "Candidate ID", "Name", "Role", "School", "Source", "Intake date",
+    "Stage", "Human decision", "AI suggestion", "Role ID", "Candidate materials", "Updated",
 )
 STAGES = {
-    "待确认", "新收到", "待初筛", "待约一面", "一面", "待约二面", "二面",
-    "待约三面", "三面", "待决策", "Offer沟通", "待入职", "已入职",
-    "暂停", "已结束", "已归档",
+    "Pending confirmation", "Received", "Awaiting screening",
+    "Awaiting first interview scheduling", "First interview",
+    "Awaiting second interview scheduling", "Second interview",
+    "Awaiting third interview scheduling", "Third interview", "Awaiting decision",
+    "Offer discussion", "Awaiting start", "Hired", "Paused", "Closed", "Archived",
 }
-DECISIONS = {"", "继续推进", "pass", "淘汰", "候选人退出", "Offer拒绝", "Offer接受", "已入职"}
-ARCHIVE_DECISIONS = {"pass", "淘汰", "候选人退出", "Offer拒绝"}
+DECISIONS = {"", "Advance", "Do not advance", "Rejected", "Withdrawn", "Offer declined", "Offer accepted", "Hired"}
+ARCHIVE_DECISIONS = {"Do not advance", "Rejected", "Withdrawn", "Offer declined"}
 TABLES = (
-    ("00-console/候选人总表.csv", "02-candidates"),
-    ("90-archive/候选人归档表.csv", "90-archive"),
-    ("91-hired/已入职表.csv", "91-hired"),
+    ("00-console/candidates.csv", "02-candidates"),
+    ("90-archive/archived-candidates.csv", "90-archive"),
+    ("91-hired/hired-candidates.csv", "91-hired"),
 )
-OUTPUT = ROOT / "00-console/候选人总表.html"
+OUTPUT = ROOT / "00-console/candidates.html"
 
 
 def fail(message):
     raise ValueError(message)
 
 
+def slug(value):
+    return re.sub(r"[^a-z0-9]+", "-", value.lower()).strip("-")
+
+
 def role_index():
     roles = {}
-    for card in sorted((ROOT / "01-roles").glob("*/岗位卡.md")):
+    for card in sorted((ROOT / "01-roles").glob("*/role-card.md")):
         text = card.read_text(encoding="utf-8")
-        role_id = re.search(r"^\| 岗位ID \| ([^|]+) \|$", text, re.M)
-        name = re.search(r"^\| 岗位名称 \| ([^|]+) \|$", text, re.M)
+        role_id = re.search(r"^\| Role ID \| ([^|]+) \|$", text, re.M)
+        name = re.search(r"^\| Role name \| ([^|]+) \|$", text, re.M)
         if not role_id or not name:
-            fail(f"{card.relative_to(ROOT)}: 岗位卡缺少 ID 或名称")
+            fail(f"{card.relative_to(ROOT)}: missing role ID or name")
         key = role_id[1].strip()
         if not re.fullmatch(r"J-\d{6}-[A-Z0-9]+", key) or key in roles:
-            fail(f"{card.relative_to(ROOT)}: 岗位 ID 格式错误或重复")
+            fail(f"{card.relative_to(ROOT)}: invalid or duplicate role ID")
         if not card.parent.name.startswith(key + "-"):
-            fail(f"{card.relative_to(ROOT)}: 目录与岗位 ID 不一致")
-        for required in ("JD.md", "筛选标准.md"):
+            fail(f"{card.relative_to(ROOT)}: directory does not match role ID")
+        for required in ("JD.md", "screening-criteria.md"):
             if not (card.parent / required).is_file():
-                fail(f"{card.parent.relative_to(ROOT)}: 缺少 {required}")
+                fail(f"{card.parent.relative_to(ROOT)}: missing {required}")
         roles[key] = name[1].strip()
     return roles
 
@@ -63,65 +73,65 @@ def load_tables():
         with (ROOT / relative).open(encoding="utf-8-sig", newline="") as stream:
             reader = csv.DictReader(stream)
             if reader.fieldnames != list(FIELDS):
-                fail(f"{relative}: 表头或列顺序错误")
+                fail(f"{relative}: incorrect CSV header or column order")
             for row in reader:
                 if not any(value for value in row.values()):
                     continue
                 if set(row) != set(FIELDS) or any(v is None for v in row.values()):
-                    fail(f"{relative}: 第 {reader.line_num} 行字段数错误")
+                    fail(f"{relative}: wrong field count at line {reader.line_num}")
                 for key, value in row.items():
                     if value != value.strip():
-                        fail(f"{relative}: 第 {reader.line_num} 行 {key} 有首尾空白")
-                cid, job_id = row["候选人ID"], row["岗位ID"]
+                        fail(f"{relative}: surrounding whitespace in {key} at line {reader.line_num}")
+                cid, job_id = row["candidate_id"], row["role_id"]
                 if not re.fullmatch(r"C-\d{6}-\d{3}", cid) or cid in seen_ids:
-                    fail(f"{relative}: 候选人 ID 格式错误或跨表重复")
-                if row["序号"] != str(len(rows) + 1):
-                    fail(f"{relative}: 序号不连续")
-                if roles.get(job_id) != row["岗位"]:
-                    fail(f"{relative}: 岗位 ID 与岗位名称不匹配")
-                for field in ("入库时间", "最后更新"):
+                    fail(f"{relative}: invalid candidate ID or duplicate across tables")
+                if row["sequence"] != str(len(rows) + 1):
+                    fail(f"{relative}: sequence numbers are not consecutive")
+                if roles.get(job_id) != row["role"]:
+                    fail(f"{relative}: role ID and display name do not match")
+                for field in ("intake_date", "updated_at"):
                     if not re.fullmatch(r"\d{4}-\d{2}-\d{2}", row[field]):
-                        fail(f"{relative}: {field} 必须为 YYYY-MM-DD")
+                        fail(f"{relative}: {field} must use YYYY-MM-DD")
                     date.fromisoformat(row[field])
-                if row["入库时间"] > row["最后更新"]:
-                    fail(f"{relative}: 最后更新早于入库时间")
-                stage, decision = row["当前阶段"], row["人工结论"]
+                if row["intake_date"] > row["updated_at"]:
+                    fail(f"{relative}: update date precedes intake date")
+                stage, decision = row["stage"], row["human_decision"]
                 if stage not in STAGES or decision not in DECISIONS:
-                    fail(f"{relative}: 阶段或结论不是受控值")
-                if row["AI建议"] and not row["AI建议"].startswith("AI建议："):
-                    fail(f"{relative}: AI 建议缺少标识")
+                    fail(f"{relative}: stage or decision is not a controlled value")
+                if row["ai_recommendation"] and not row["ai_recommendation"].startswith("AI suggestion: "):
+                    fail(f"{relative}: AI recommendation is missing its label")
                 if bucket == "02-candidates" and (
-                    stage in {"已归档", "已入职"} or decision in ARCHIVE_DECISIONS | {"已入职"}
+                    stage in {"Archived", "Hired"} or decision in ARCHIVE_DECISIONS | {"Hired"}
                 ):
-                    fail(f"{relative}: 当前表混入结束记录")
-                if bucket == "90-archive" and (stage != "已归档" or decision not in ARCHIVE_DECISIONS):
-                    fail(f"{relative}: 归档状态或结论错误")
-                if bucket == "91-hired" and (stage != "已入职" or decision != "已入职"):
-                    fail(f"{relative}: 已入职状态或结论错误")
-                path = Path(row["候选人目录"])
+                    fail(f"{relative}: current table contains an ended record")
+                if bucket == "90-archive" and (stage != "Archived" or decision not in ARCHIVE_DECISIONS):
+                    fail(f"{relative}: incorrect archive stage or decision")
+                if bucket == "91-hired" and (stage != "Hired" or decision != "Hired"):
+                    fail(f"{relative}: incorrect hired stage or decision")
+                path = Path(row["candidate_directory"])
                 depth = 3 if bucket == "02-candidates" else 2
                 if path.is_absolute() or ".." in path.parts or len(path.parts) != depth:
-                    fail(f"{relative}: 候选人目录不是约定的相对路径")
-                if path.parts[0] != bucket or (depth == 3 and path.parts[1] != row["岗位"]):
-                    fail(f"{relative}: 候选人目录分区或岗位错误")
-                if path.name not in {row["姓名"], row["姓名"] + "-" + cid}:
-                    fail(f"{relative}: 候选人目录与姓名不一致")
+                    fail(f"{relative}: candidate directory is not an allowed relative path")
+                if path.parts[0] != bucket or (depth == 3 and path.parts[1] != slug(row["role"])):
+                    fail(f"{relative}: incorrect candidate bucket or role directory")
+                if path.name not in {slug(row["name"]), slug(row["name"]) + "-" + cid}:
+                    fail(f"{relative}: candidate directory does not match name")
                 folder = (ROOT / path).resolve()
                 if not folder.is_relative_to(ROOT) or folder in seen_paths:
-                    fail(f"{relative}: 候选人目录越界或重复")
-                card = folder / "候选人卡.md"
+                    fail(f"{relative}: candidate directory is outside the workspace or repeated")
+                card = folder / "candidate-card.md"
                 if not card.is_file() or cid not in card.read_text(encoding="utf-8"):
-                    fail(f"{relative}: 缺少候选人卡或卡内 ID 不匹配")
+                    fail(f"{relative}: missing candidate card or mismatched ID")
                 seen_ids.add(cid)
                 seen_paths.add(folder)
                 rows.append(row)
-        if rows != sorted(rows, key=lambda r: (r["岗位ID"], r["候选人ID"])):
-            fail(f"{relative}: 未按岗位 ID、候选人 ID 排序")
+        if rows != sorted(rows, key=lambda r: (r["role_id"], r["candidate_id"])):
+            fail(f"{relative}: rows are not sorted by role ID and candidate ID")
         tables.append(rows)
     for _, bucket in TABLES:
-        for card in (ROOT / bucket).rglob("候选人卡.md"):
+        for card in (ROOT / bucket).rglob("candidate-card.md"):
             if card.parent.resolve() not in seen_paths:
-                fail(f"{card.relative_to(ROOT)}: 候选人目录未登记到表中")
+                fail(f"{card.relative_to(ROOT)}: candidate folder has no table entry")
     return tables
 
 
@@ -129,30 +139,30 @@ def render(rows):
     parts = []
     previous = None
     for row in rows:
-        if row["岗位ID"] != previous:
+        if row["role_id"] != previous:
             if previous is not None:
                 parts.append('<tr class="spacer" aria-hidden="true"><td colspan="13"></td></tr>')
-            previous = row["岗位ID"]
+            previous = row["role_id"]
         cells = []
         for field in FIELDS:
             value = escape(row[field] or "—")
-            if field == "候选人目录":
-                target = "../" + quote(row[field] + "/候选人卡.md", safe="/")
-                value = f'<a href="{target}">查看候选人卡</a>'
+            if field == "candidate_directory":
+                target = "../" + quote(row[field] + "/candidate-card.md", safe="/")
+                value = f'<a href="{target}">View candidate card</a>'
             cells.append(f"<td>{value}</td>")
         parts.append("<tr>" + "".join(cells) + "</tr>")
     if not rows:
-        parts.append('<tr><td colspan="13">暂无当前候选人</td></tr>')
-    headers = "".join(f'<th scope="col">{escape(field)}</th>' for field in FIELDS)
+        parts.append('<tr><td colspan="13">No current candidates</td></tr>')
+    headers = "".join(f'<th scope="col">{escape(label)}</th>' for label in LABELS)
     body = "\n".join(parts)
-    groups = len({row["岗位ID"] for row in rows})
+    groups = len({row["role_id"] for row in rows})
     return f'''<!doctype html>
-<html lang="zh-CN">
+<html lang="en">
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <meta name="referrer" content="no-referrer">
-<title>候选人总表 · Recruit Template Version</title>
+<title>Candidate tracker · Recruit Template Version</title>
 <style>
 *{{box-sizing:border-box}}body{{margin:0;padding:40px 24px;background:#f5f6f8;color:#1d2939;font:15px/1.6 system-ui,sans-serif}}
 main{{max-width:1600px;margin:auto}}h1{{font-size:28px;margin:0 0 8px}}a{{color:#2452a1;text-underline-offset:3px}}
@@ -166,18 +176,18 @@ th{{background:#f0f3f8;white-space:nowrap}}td:nth-child(10){{min-width:260px}}td
 </style>
 </head>
 <body><main>
-<p class="meta">Recruit Template Version · 本地浏览版</p>
-<h1>候选人总表</h1>
-<p class="notice">公开模板中的记录全部为虚构示例，与真实人员无对应关系。在私有副本填入真实资料后，请勿公开发布此页面。</p>
-<p><a href="%E5%80%99%E9%80%89%E4%BA%BA%E6%80%BB%E8%A1%A8.csv">CSV 状态来源</a> · <a href="%E6%8B%9B%E8%81%98%E5%BE%85%E5%8A%9E.md">招聘待办</a> · <a href="../README.md">使用说明</a></p>
-<p class="meta">当前候选人 {len(rows)} 人 · 岗位 {groups} 个。归档与已入职记录不计入当前表。</p>
+<p class="meta">Recruit Template Version · Local browser</p>
+<h1>Candidate tracker</h1>
+<p class="notice">All records in this public template are fictional and do not correspond to real people. Do not publish this page after adding real information to a private copy.</p>
+<p><a href="candidates.csv">CSV source of truth</a> · <a href="hiring-todos.md">Hiring todos</a> · <a href="../README.md">User guide</a></p>
+<p class="meta">Current candidates: {len(rows)} · Roles: {groups}. Archived and hired records are excluded.</p>
 <div class="table-wrap"><table>
-<caption>当前在招候选人（按岗位分组）</caption>
+<caption>Current candidates, grouped by role</caption>
 <thead><tr>{headers}</tr></thead>
 <tbody>
 {body}
 </tbody></table></div>
-<footer>本页由 CSV 生成，不在 HTML 中直接维护状态。更新 CSV 后运行 <code>python3 scripts/build_console.py</code>。</footer>
+<footer>This page is generated from CSV. Maintain stages in CSV, then run <code>python3 scripts/build_console.py</code>.</footer>
 </main></body></html>
 '''
 
@@ -191,7 +201,7 @@ def main():
         expected = render(tables[0])
         if args.check:
             if not OUTPUT.is_file() or OUTPUT.read_text(encoding="utf-8") != expected:
-                fail("HTML 缺失或已过期，请运行 python3 scripts/build_console.py")
+                fail("HTML is missing or stale; run python3 scripts/build_console.py")
         else:
             OUTPUT.write_text(expected, encoding="utf-8")
         counts = ", ".join(str(len(table)) for table in tables)

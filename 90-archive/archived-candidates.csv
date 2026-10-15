@@ -1,0 +1,2 @@
+sequence,candidate_id,name,role,school,source,intake_date,stage,human_decision,ai_recommendation,role_id,candidate_directory,updated_at
+1,C-203001-006,Sample Candidate F,Product Operations,Example Institute White,Sample application,2030-01-03,Archived,Withdrawn,AI suggestion: Fictional process closed; no further action suggested,J-203001-OPS,90-archive/sample-candidate-f,2030-01-07
