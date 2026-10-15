@@ -1,9 +1,51 @@
-# Hiring tracker
+# Recruit Template Version
 
-A simple pipeline for your next hire: the role, the candidates and the interview notes side by side, kept as plain files an agent can read and write.
+一套面向人和 AI 协作的招聘工作区。用 Markdown 保存岗位、候选人卡和面试记录，用 CSV 管理招聘阶段，用本地 HTML 浏览候选人。不需要数据库、账号或在线服务。
 
-1. Describe the role in **Role.md**.
-2. Track candidates in **candidates.csv**.
-3. Copy **interviews/Interview template.md** for each interview.
+> **公开模板 · 全部示例均为虚构。** 示例人员、学校、项目、日期、沟通和录用结果均专为演示编写，与真实招聘记录无对应关系。邮件仅使用 `example.com`。模板不包含真实简历、联系方式、面试评价、招聘平台导出、内部链接或私有仓库历史。
 
-Keep this folder private when adding real candidate information. No scripts or integrations are required. All candidates in the examples are fictional.
+## 快速开始
+
+1. 将本模板复制到你自己的**私有工作区**。公开模板仓库只用于维护模板，真实招聘资料应另行保管。
+2. 从 [岗位目录](01-roles/README.md) 选择或创建岗位，填写 JD、岗位卡及筛选标准；`{{...}}` 都是使用前需要填写的占位符。
+3. 查看 [虚构候选人示例](02-candidates/README.md)，再用 [候选人卡模板](03-process-templates/9候选人卡模板.md) 建立自己的记录。正式使用时，移除三个 CSV 中的虚构行及对应示例目录，保留表头。
+4. 在 [候选人总表](00-console/候选人总表.csv) 维护当前阶段，在 [招聘待办](00-console/招聘待办.md) 维护下一步行动。AI 建议与人工结论分开填写。
+5. 双击 [浏览版总表](00-console/候选人总表.html) 即可查看；修改 CSV 后，使用 Python 3.9 或更高版本的标准库脚本重新生成：
+
+   ```sh
+   python3 scripts/build_console.py
+   python3 scripts/build_console.py --check
+   ```
+
+不使用 Python 也可以直接编辑 CSV 和 Markdown；HTML 是派生视图，修改 CSV 后需重新生成才会更新。
+
+## 工作区入口
+
+| 目录 | 内容 |
+| --- | --- |
+| [00-console](00-console/候选人总表.csv) | 当前候选人、HTML 浏览版、待办、同步记录 |
+| [01-roles](01-roles/README.md) | 设计、工程、运营三个通用示例岗位 |
+| [02-candidates](02-candidates/README.md) | 按岗位分组的虚构候选人卡、示例材料与沟通记录 |
+| [03-process-templates](03-process-templates/9招聘流程.md) | 触达、面试、拒信、Offer、候选人卡和记录模板 |
+| [04-技术笔试题](04-技术笔试题/笔试题-发给候选人.md) | 通用技术练习与独立评审参考 |
+| [05-boss-zhipin](05-boss-zhipin/README.md) | 渠道记录约定与空白入库记录模板 |
+| [90-archive](90-archive/README.md) | 未入职结束的虚构归档示例 |
+| [91-hired](91-hired/README.md) | 虚构已入职示例 |
+| [99-system-rules](99-system-rules/人机协作规范.md) | 字段、状态、命名、同步及公开模板维护规则 |
+
+## 日常流程
+
+1. 确认岗位与本次材料范围，核验材料是否可读。
+2. 联合检查当前表、归档表、已入职表，避免重复建档。
+3. 为新候选人分配唯一 ID，建立 `02-candidates/<岗位>/<姓名>/`，保留原始材料并标明事实来源。
+4. AI 可以整理事实、标注待核实项和起草问题；人确认是否推进、面试结论和招聘阶段。
+5. 每次状态变更先更新 CSV，再重新生成 HTML；沟通日期和下一步事项放在待办或沟通记录。
+6. 人工确认结束后移入归档；人工确认已入职后移入已入职目录。两者均从当前表移除。
+
+完整规则见 [AGENTS.md](AGENTS.md) 与 [招聘流程](03-process-templates/9招聘流程.md)。示例中的 `pass` 明确表示“不继续推进”，详情见 [字段与状态规范](99-system-rules/字段与状态规范.md)。
+
+## 维护公开模板
+
+参照 [公开模板维护规范](99-system-rules/公开模板维护规范.md)。结构可复用，业务数据需重新编写为虚构示例；仅替换姓名不足以脱敏。`.gitignore` 只是辅助措施，发布前仍需人工审阅暂存内容、文件名、链接和 Git 历史。
+
+本仓库沿用原有 [LICENSE](LICENSE)。
